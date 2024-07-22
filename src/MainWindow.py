@@ -34,7 +34,7 @@ class MainWindow(QMainWindow):
             self.stop()
 
     def start(self):
-        self.time_timer.start(10)
+        self.time_timer.start(1000)
 
     def stop(self):
         self.time_timer.stop()
