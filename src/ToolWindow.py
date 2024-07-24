@@ -1,9 +1,10 @@
 from src.tool import *
+from src.typing import MainWindow
 from PyQt6.QtWidgets import QWidget
 
 
 class ToolWindowUI(Ui_Tool, QWidget):
-    def __init__(self, parent: QtWidgets):
+    def __init__(self, parent: MainWindow):
         super().__init__()
         self.setupUi(self)
         self.parent = parent
