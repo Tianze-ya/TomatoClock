@@ -10,6 +10,7 @@ class ToolWindowUI(QWidget):
         self.ui.setupUi(self)
         self.parent = parent
         self.ui.SaveButton.clicked.connect(self.save_button_clicked)
+        self.ui.worktime_h = self.parent
 
     def save_button_clicked(self):
         if self.parent.state == "工作中":
