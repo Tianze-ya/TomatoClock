@@ -2,23 +2,26 @@ from typing import *
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import QMainWindow
 from . import clock
+from src.ToolWindow import ToolWindowUI
 from PyQt6.QtMultimedia import QSoundEffect
 
 
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-        self.full_window = None
+        self.time_m = None
+        self.time_h = None
 
         self.clock = clock.Ui_TomatoClock()
         self.clock.setupUi(self)
+
+        self.clock.toolButton.clicked.connect(self.tool_button_clicked)
 
         self.time_timer = QTimer()
         self.time_timer.timeout.connect(self.time_update)
 
         self.state = "工作中"
         self.clock.pushButton.clicked.connect(self.push_button_clicked)
-        
 
     def push_button_clicked(self):
         if self.clock.pushButton.text() == "开始":
@@ -30,6 +33,10 @@ class MainWindow(QMainWindow):
             self.clock.state.setText("暂停中")
             self.stop()
 
+    def tool_button_clicked(self):
+        toolwindow = ToolWindowUI(self)
+        toolwindow.show()
+
     def start(self):
         self.time_timer.start(1000)
 
@@ -38,18 +45,12 @@ class MainWindow(QMainWindow):
 
     def time_update(self):
         now = self.clock.time.text().split(':')
-        if self.state == "工作中":
-            time_h = self.clock.worktime_h.text().zfill(2)
-            time_m = self.clock.worktime_m.text().zfill(2)
-        else:
-            time_h = self.clock.resttime_h.text().zfill(2)
-            time_m = self.clock.resttime_m.text().zfill(2)
 
-        if is_end(now, [time_h, time_m]):
-            self.effect = QSoundEffect()
-            self.effect.setSource(QUrl.fromLocalFile("./sound/clock.wav"))
-            self.effect.setVolume(1)
-            self.effect.play()
+        if is_end(now, [self.time_h, self.time_m]):
+            effect = QSoundEffect()
+            effect.setSource(QUrl.fromLocalFile("./sound/clock.wav"))
+            effect.setVolume(1)
+            effect.play()
             self.stop()
             self.time_to_zero()
             if self.state == "工作中":
@@ -60,9 +61,6 @@ class MainWindow(QMainWindow):
             self.start()
         else:
             self.clock.time.setText(sec_next(now))
-        if self.full_window:
-            self.full_window.update_time()
-
     def time_to_zero(self):
         self.clock.time.setText("00:00:00")
 
