@@ -18,10 +18,7 @@ class MainWindow(QMainWindow):
 
         self.state = "工作中"
         self.clock.pushButton.clicked.connect(self.push_button_clicked)
-
-        self.effect = QSoundEffect()
-        self.effect.setSource(QUrl.fromLocalFile("./sound/clock.wav"))
-        self.effect.setVolume(1)
+        
 
     def push_button_clicked(self):
         if self.clock.pushButton.text() == "开始":
@@ -49,6 +46,9 @@ class MainWindow(QMainWindow):
             time_m = self.clock.resttime_m.text().zfill(2)
 
         if is_end(now, [time_h, time_m]):
+            self.effect = QSoundEffect()
+            self.effect.setSource(QUrl.fromLocalFile("./sound/clock.wav"))
+            self.effect.setVolume(1)
             self.effect.play()
             self.stop()
             self.time_to_zero()
