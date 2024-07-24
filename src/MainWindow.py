@@ -3,7 +3,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtWidgets import QMainWindow
 from . import clock
 from src.ToolWindow import ToolWindowUI
-from PyQt6.QtMultimedia import QSoundEffect
+from playsound import playsound
 
 
 class MainWindow(QMainWindow):
@@ -42,12 +42,9 @@ class MainWindow(QMainWindow):
         now = self.clock.time.text().split(':')
 
         if is_end(now, [self.time_h, self.time_m]):
-            effect = QSoundEffect()
-            effect.setSource(QUrl.fromLocalFile("./sound/clock.wav"))
-            effect.setVolume(1)
-            effect.play()
             self.stop()
             self.time_to_zero()
+            playsound("./clock.wav")
             if self.state == "工作中":
                 self.state = "休息中"
             else:
