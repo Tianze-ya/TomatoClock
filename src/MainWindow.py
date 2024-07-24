@@ -37,12 +37,6 @@ class MainWindow(QMainWindow):
         toolwindow = ToolWindowUI(self)
         toolwindow.show()
 
-    def start(self):
-        self.time_timer.start(1000)
-
-    def stop(self):
-        self.time_timer.stop()
-
     def time_update(self):
         now = self.clock.time.text().split(':')
 
@@ -61,6 +55,13 @@ class MainWindow(QMainWindow):
             self.start()
         else:
             self.clock.time.setText(sec_next(now))
+
+    def start(self):
+        self.time_timer.start(1000)
+
+    def stop(self):
+        self.time_timer.stop()
+
     def time_to_zero(self):
         self.clock.time.setText("00:00:00")
 
