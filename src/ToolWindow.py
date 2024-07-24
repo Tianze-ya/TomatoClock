@@ -18,3 +18,4 @@ class ToolWindowUI(QWidget):
         else:
             self.parent.time_h = self.ui.resttime_h.text().zfill(2)
             self.parent.time_m = self.ui.resttime_m.text().zfill(2)
+        self.close()

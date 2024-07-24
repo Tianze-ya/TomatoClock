@@ -92,17 +92,17 @@
     <string>开始</string>
    </property>
   </widget>
-  <widget class="QToolButton" name="toolButton">
+  <widget class="QPushButton" name="toolButton">
    <property name="geometry">
     <rect>
-     <x>380</x>
+     <x>340</x>
      <y>270</y>
-     <width>24</width>
-     <height>22</height>
+     <width>75</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>...</string>
+    <string>Settings</string>
    </property>
   </widget>
  </widget>

@@ -42,8 +42,8 @@ class Ui_TomatoClock(object):
         font.setPointSize(16)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
-        self.toolButton = QtWidgets.QToolButton(parent=TomatoClock)
-        self.toolButton.setGeometry(QtCore.QRect(380, 270, 24, 22))
+        self.toolButton = QtWidgets.QPushButton(parent=TomatoClock)
+        self.toolButton.setGeometry(QtCore.QRect(340, 270, 75, 24))
         self.toolButton.setObjectName("toolButton")
 
         self.retranslateUi(TomatoClock)
@@ -56,4 +56,4 @@ class Ui_TomatoClock(object):
         self.state.setText(_translate("TomatoClock", "暂停中"))
         self.time.setText(_translate("TomatoClock", "00:00:00"))
         self.pushButton.setText(_translate("TomatoClock", "开始"))
-        self.toolButton.setText(_translate("TomatoClock", "..."))
+        self.toolButton.setText(_translate("TomatoClock", "Settings"))

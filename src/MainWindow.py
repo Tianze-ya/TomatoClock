@@ -9,6 +9,7 @@ from PyQt6.QtMultimedia import QSoundEffect
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
+        self.toolwindow = None
         self.time_m = None
         self.time_h = None
 
@@ -34,8 +35,8 @@ class MainWindow(QMainWindow):
             self.stop()
 
     def tool_button_clicked(self):
-        toolwindow = ToolWindowUI(self)
-        toolwindow.show()
+        self.toolwindow = ToolWindowUI(self)
+        self.toolwindow.show()
 
     def time_update(self):
         now = self.clock.time.text().split(':')
