@@ -1,27 +1,22 @@
 from typing import *
 from PyQt6.QtCore import *
-from PyQt6.QtWidgets import QMainWindow
 from . import clock
+from src.typelib import *
 from src.ToolWindow import ToolWindowUI
 from playsound import playsound
 
 
-class MainWindow(QMainWindow):
+class MainWindow(MainWindowUI):
     def __init__(self) -> None:
         super().__init__()
-        self.toolwindow = None
-        self.time_m = None
-        self.time_h = None
 
         self.clock = clock.Ui_TomatoClock()
         self.clock.setupUi(self)
 
-        self.clock.toolButton.clicked.connect(self.tool_button_clicked)
-
         self.time_timer = QTimer()
         self.time_timer.timeout.connect(self.time_update)
-
-        self.state = "工作中"
+        
+        self.clock.toolButton.clicked.connect(self.tool_button_clicked)
         self.clock.pushButton.clicked.connect(self.push_button_clicked)
 
     def push_button_clicked(self):
@@ -40,8 +35,11 @@ class MainWindow(QMainWindow):
 
     def time_update(self):
         now = self.clock.time.text().split(':')
-
-        if is_end(now, [self.time_h, self.time_m]):
+        if self.parent.state == "工作中":
+            time = self.worktime
+        else:
+            time = self.resttime
+        if is_end(now, time):
             self.stop()
             self.time_to_zero()
             playsound("./clock.wav")
